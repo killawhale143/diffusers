@@ -722,7 +722,7 @@ class DreamBoothDataset(Dataset):
         # we load the training data using load_dataset
         if args.dataset_name is not None:
             try:
-                from datasets import load_dataset
+                from datasets import load_dataset, load_from_disk
             except ImportError:
                 raise ImportError(
                     "You are trying to load your data using the datasets library. If you wish to train using custom "
@@ -732,11 +732,12 @@ class DreamBoothDataset(Dataset):
             # Downloading and loading a dataset from the hub.
             # See more about loading custom images at
             # https://huggingface.co/docs/datasets/v2.0.0/en/dataset_script
-            dataset = load_dataset(
-                args.dataset_name,
-                args.dataset_config_name,
-                cache_dir=args.cache_dir,
-            )
+            # dataset = load_dataset(
+            #     args.dataset_name,
+            #     args.dataset_config_name,
+            #     cache_dir=args.cache_dir,
+            # )
+            dataset = load_from_disk(args.dataset_name)
             # Preprocessing the datasets.
             column_names = dataset["train"].column_names
 
